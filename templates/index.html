@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Compatibilidad zodiacal</title>
+    <!-- Enlace al CSS externo -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Compatibilidad zodiacal</h1>
+
+    <form method="post">
+        <div>
+            <label for="signo1">Primer signo</label>
+            <select name="signo1" id="signo1" required>
+                <option value="">— Selecciona un signo —</option>
+                {% for s in signos %}
+                    <option value="{{ s }}"
+                        {% if resultado and resultado.signo1 == s %}selected{% endif %}>
+                        {{ s|capitalize }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="signo2">Segundo signo</label>
+            <select name="signo2" id="signo2" required>
+                <option value="">— Selecciona un signo —</option>
+                {% for s in signos %}
+                    <option value="{{ s }}"
+                        {% if resultado and resultado.signo2 == s %}selected{% endif %}>
+                        {{ s|capitalize }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit">Calcular compatibilidad</button>
+    </form>
+
+    {% if resultado %}
+        <div class="resultado">
+            {% if resultado.error %}
+                <div class="error">
+                    {{ resultado.error }}
+                </div>
+            {% else %}
+                <h2>
+                    {{ resultado.signo1|capitalize }} y {{ resultado.signo2|capitalize }}
+                    {% if resultado.nivel == "alta" %}
+                        <span class="tag tag-alta">Alta</span>
+                    {% elif resultado.nivel == "media" %}
+                        <span class="tag tag-media">Media</span>
+                    {% elif resultado.nivel == "baja" %}
+                        <span class="tag tag-baja">Baja</span>
+                    {% endif %}
+                </h2>
+
+                <!-- Porcentaje grande -->
+                <div class="porcentaje">
+                    {{ resultado.porcentaje }}%
+                    <span>compatibilidad aproximada</span>
+                </div>
+
+                <!-- Descripción corta por nivel -->
+                <div class="descripcion-corta">
+                    {{ resultado.descripcion }}
+                </div>
+
+                <!-- Mensaje largo según el porcentaje -->
+                <div class="mensaje-detallado">
+                    {{ resultado.mensaje_detallado }}
+                </div>
+
+                <small>Nota: sistema experto de ejemplo, no tomar decisiones de vida con esto 😄</small>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
