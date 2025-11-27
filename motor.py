@@ -7,7 +7,7 @@ Utiliza:
 - Encadenamiento hacia adelante muy simple: a partir de los signos,
   obtiene los elementos y luego aplica reglas de compatibilidad.
 - Una función recursiva para buscar la regla aplicable.
-- Un sistema "cosmético" de porcentaje y mensajes verbosos según rango.
+- Un sistema cosmetico
 """
 
 import random
@@ -48,7 +48,6 @@ def buscar_regla_recursiva(elemento1: str, elemento2: str, indice: int = 0) -> s
     return buscar_regla_recursiva(elemento1, elemento2, indice + 1)
 
 
-# --- NUEVO: lógica de porcentaje y mensajes verbosos --- #
 
 def rango_por_nivel(nivel: str) -> tuple[int, int]:
     """
@@ -71,9 +70,8 @@ def rango_por_nivel(nivel: str) -> tuple[int, int]:
 def mensaje_por_porcentaje(porcentaje: int, nivel: str) -> str:
     """
     Devuelve un mensaje largo según el rango del porcentaje.
-    No tiene por qué tener mucha lógica: es puro texto de color.
+    No tiene mucha logica.
     """
-    # Puedes ajustar estos textos a tu gusto, solo es “verbo”.
     if 0 <= porcentaje <= 9:
         return (
             f"Entre sus energías se percibe una compatibilidad casi experimental. "
